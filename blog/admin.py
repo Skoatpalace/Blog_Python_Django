@@ -1,6 +1,7 @@
 from django.contrib import admin
-from django.forms import Textarea
 from django.db import models
+from django.forms import Textarea
+
 from blog.models import PostCategory, Post, Comment
 
 
@@ -32,13 +33,13 @@ class PostAdmin(admin.ModelAdmin):
 
     def comments_count(self, obj):
         return Comment.objects.filter(post=obj).count()
-
     comments_count.short_description = 'Comments'
 
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    search_fields = ['post__title', 'author_name']
+
+    search_fields = ['post__title', 'author_name', ]
     list_display = (
         'post',
         'author_name',
@@ -48,6 +49,6 @@ class CommentAdmin(admin.ModelAdmin):
         'text',
     )
 
-    list_editable = ('status', 'moderation_text',)
+    list_editable = ('status', 'moderation_text', )
 
-    list_filter = ('status',)
+    list_filter = ('status', )
